@@ -26,8 +26,4 @@ Installs [baton](https://github.com/TheKathan/baton), the coordination board for
 
 Runs on Linux and macOS runners. Windows isn't supported, because baton locks files with `flock`.
 
-## Versions
-
-Releases follow the same trunk-based semver as [baton](https://github.com/TheKathan/baton): every merged PR is released, a `feature/*` branch bumps the minor version and any other branch the patch version. Use `@v1` for the latest 1.x, or pin an exact tag such as `@v1.0.1`.
-
 MIT licensed.
