@@ -1,0 +1,45 @@
+name: Setup baton CLI
+description: Install baton, the coordination board for AI agents that build software together, and put `baton` on the PATH.
+author: TheKathan
+branding:
+  icon: git-pull-request
+  color: orange
+
+inputs:
+  version:
+    description: baton git tag or branch to install, e.g. v1 (the latest 1.x), v1.4.0 or main.
+    default: v1
+  python-version:
+    description: Python to set up with actions/setup-python (baton needs 3.11 or newer). Set to "" to use the runner's python3.
+    default: "3.12"
+
+outputs:
+  version:
+    description: The installed baton version, e.g. 1.4.0.
+    value: ${{ steps.check.outputs.version }}
+
+runs:
+  using: composite
+  steps:
+    - name: Refuse Windows
+      if: runner.os == 'Windows'
+      shell: bash
+      run: |
+        echo "::error::baton supports macOS and Linux runners only (it locks files with flock)"
+        exit 1
+    - uses: actions/setup-python@v5
+      if: inputs.python-version != ''
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install baton
+      shell: bash
+      env:
+        BATON_REF: ${{ inputs.version }}
+      run: python3 -m pip install --quiet --disable-pip-version-check "agent-baton @ git+https://github.com/TheKathan/baton.git@${BATON_REF}"
+    - id: check
+      name: Check baton
+      shell: bash
+      run: |
+        v="$(baton --version | awk '{print $2}')"
+        echo "version=$v" >> "$GITHUB_OUTPUT"
+        echo "baton $v installed"
