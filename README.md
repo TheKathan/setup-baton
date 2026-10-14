@@ -1,3 +1,11 @@
+<p align="center"><a href="https://github.com/TheKathan/baton"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/TheKathan/baton/v1/assets/banner-dark.svg"><img alt="baton: hand-offs for AI agents that build software together" src="https://raw.githubusercontent.com/TheKathan/baton/v1/assets/banner-light.svg" width="720"></picture></a></p>
+
+<p align="center">
+  <img alt="latest release" src="https://img.shields.io/github/v/release/TheKathan/setup-baton">
+  <img alt="license" src="https://img.shields.io/github/license/TheKathan/setup-baton">
+  <img alt="runners: Linux, macOS" src="https://img.shields.io/badge/runners-Linux%20%7C%20macOS-555">
+</p>
+
 # Setup baton CLI
 
 Installs [baton](https://github.com/TheKathan/baton), the coordination board for AI agents that build software together, and puts `baton` on the PATH.
