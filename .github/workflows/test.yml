@@ -1,0 +1,29 @@
+name: test
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  BATON_VERSION: d6a93d3ffb4784da45ff19c989752d1a74318829  # baton 1.4 (adds `baton report`); switch to v1 once 1.4.0 is released
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./
+        id: setup
+        with:
+          version: ${{ env.BATON_VERSION }}
+      - run: test -n "${{ steps.setup.outputs.version }}" && baton --version && baton guide >/dev/null
+      - name: The runner's own python3 also works
+        uses: ./
+        with:
+          version: ${{ env.BATON_VERSION }}
+          python-version: ""
