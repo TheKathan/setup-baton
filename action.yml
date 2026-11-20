@@ -35,7 +35,7 @@ runs:
       shell: bash
       env:
         BATON_REF: ${{ inputs.version }}
-      run: python3 -m pip install --quiet --disable-pip-version-check "agent-baton @ git+https://github.com/TheKathan/baton.git@${BATON_REF}"
+      run: python3 -m pip install --quiet --disable-pip-version-check "git+https://github.com/TheKathan/baton.git@${BATON_REF}"
     - id: check
       name: Check baton
       shell: bash
